@@ -1,0 +1,31 @@
+package handling_Popups;
+import java.time.Duration;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class PrintTitle3Windows {
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
+		driver.get("https://demoapps.qspiders.com/");
+		driver.findElement(By.xpath("//p[text()='UI Testing Concepts']")).click();
+		driver.findElement(By.xpath("//section[text()='Popups']")).click();
+		driver.findElement(By.xpath("//section[text()='Browser Windows']")).click();
+		driver.findElement(By.xpath("(//button[text()='view more'])[1]")).click();
+		
+		driver.findElement(By.xpath("(//button[text()='view more'])[2]")).click();
+		
+		Set<String>all=driver.getWindowHandles();
+		for(String one:all) {
+			driver.switchTo().window(one);
+			System.out.println(driver.getTitle());Thread.sleep(2000);
+			driver.close();
+		}
+	
+	}
+
+}
